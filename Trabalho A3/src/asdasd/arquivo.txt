@@ -1,0 +1,49 @@
+[Organizador]
+- nome: String
+- contato: String
++ getNome(): String
++ setNome(nome: String)
++ getContato(): String
++ setContato(contato: String)
++ toString(): String
+
+[Local]
+- nome: String
+- endereco: String
++ getNome(): String
++ setNome(nome: String)
++ getEndereco(): String
++ setEndereco(endereco: String)
++ toString(): String
+
+[Evento]
+- id: int
+- nome: String
+- data: String
+- organizador: Organizador
+- local: Local
+- categoria: String
++ getId(): int
++ getNome(): String
++ setNome(nome: String)
++ getData(): String
++ setData(data: String)
++ getOrganizador(): Organizador
++ setOrganizador(organizador: Organizador)
++ getLocal(): Local
++ setLocal(local: Local)
++ getCategoria(): String
++ setCategoria(categoria: String)
++ toString(): String
+
+[GerenciadorEventos]
+- eventos: List<Evento>
+- proximoId: int
++ incluirEvento(nome: String, data: String, organizador: Organizador, local: Local, categoria: String)
++ consultarEvento(id: int): Evento
++ alterarEvento(id: int, novoNome: String, novaData: String, novoOrganizador: Organizador, novoLocal: Local, novaCategoria: String): boolean
++ excluirEvento(id: int): boolean
++ listarEventos()
+
+[EventosApp]
++ main(args: String[])
