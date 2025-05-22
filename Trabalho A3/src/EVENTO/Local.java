@@ -23,5 +23,9 @@ public class Local {
     public void setEndereco(String endereco){
         this.endereco = endereco;
     }
+    @Override
+    public String toString() {
+        return "Local [nome=" + nome + ", endereco=" + endereco + "]";
+    }
     
 }

@@ -54,5 +54,10 @@ public class Evento {
         this.categoria = categoria;
     }
     
+    @Override
+    public String toString() {
+        return "Evento [id=" + id + ", nome=" + nome + ", data=" + data + ", organizador=" + organizador + ", local="
+                + local + ", categoria=" + categoria + "]";
+    }
 
 }

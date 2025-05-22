@@ -23,4 +23,8 @@ public class Organizador {
     public void setcontato(String contato) {
         this.contato = contato;
     }
+    @Override 
+    public String toString() {
+        return "Organizador [nome=" + nome + ", contato=" + contato + "]";
+    }
 }

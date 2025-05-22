@@ -6,10 +6,11 @@ public class EventoApp {
 
     public static void main(String[] args) {
 
-    GerenciadorEventos gerenciador = new GerenciadorEventos();
-    Scanner scanner = new Scanner(System.in);
-    int opcao;
-    do {
+        GerenciadorEventos gerenciador = new GerenciadorEventos();
+        Scanner scanner = new Scanner(System.in);
+        int opcao;
+
+        do {
             System.out.println("=== Sistema de Gerenciamento de Eventos Culturais ===");
             System.out.println("1. Incluir novo evento");
             System.out.println("2. Consultar um evento");
@@ -19,10 +20,13 @@ public class EventoApp {
             System.out.println("6. Sair");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
-            scanner.nextLine(); 
+            scanner.nextLine();
 
             switch (opcao) {
-                case 1: 
+                case 1:
+                    System.out.println("=== Incluir Novo Evento ===");
+                    System.out.print("Tipo de evento (1 - Presencial, 2 - Virtual): ");
+                    int tipoEvento = scanner.nextInt();
                     System.out.print("Nome do evento: ");
                     String nome = scanner.nextLine();
                     System.out.print("Data do evento (DIA/MES/ANO ): ");
@@ -41,9 +45,25 @@ public class EventoApp {
                     Organizador organizador = new Organizador(nomeOrganizador, contato);
                     Local local = new Local(nomeLocal, endereco);
                     gerenciador.incluirEvento(nome, data, organizador, local, categoria);
-                    break;
 
-                case 2: 
+                    if (tipoEvento == 1) {
+                        System.out.print("Capacidade máxima: ");
+                        int capacidade = scanner.nextInt();
+                        scanner.nextLine();
+                        gerenciador.incluirEventoPresencial(nome, data, organizador, local, categoria, capacidade);
+                    } else if (tipoEvento == 2) {
+                        System.out.print("Plataforma (ex.: Zoom, Meet): ");
+                        String plataforma = scanner.nextLine();
+                        System.out.print("Link de acesso: ");
+                        String link = scanner.nextLine();
+                        gerenciador.incluirEventoVirtual(nomeLocal, data, organizador, local, categoria, link, plataforma);
+                    } else {
+                        System.out.println("Tipo de evento inválido.");
+                    }
+                    break;
+                    
+
+                case 2:
                     System.out.print("Digite o ID do evento: ");
                     int idConsulta = scanner.nextInt();
                     Evento evento = gerenciador.consultarEvento(idConsulta);
@@ -54,7 +74,7 @@ public class EventoApp {
                     }
                     break;
 
-                case 3: 
+                case 3:
                     System.out.print("Digite o ID do evento a alterar: ");
                     int idAlterar = scanner.nextInt();
                     scanner.nextLine();
@@ -75,14 +95,15 @@ public class EventoApp {
 
                     Organizador novoOrganizador = new Organizador(novoNomeOrganizador, novoContato);
                     Local novoLocal = new Local(novoNomeLocal, novoEndereco);
-                    if (gerenciador.alterarEvento(idAlterar, novoNome, novaData, novoOrganizador, novoLocal, novaCategoria)) {
+                    if (gerenciador.alterarEvento(idAlterar, novoNome, novaData, novoOrganizador, novoLocal,
+                            novaCategoria)) {
                         System.out.println("Evento alterado com sucesso!");
                     } else {
                         System.out.println("Evento não encontrado.");
                     }
                     break;
 
-                case 4: 
+                case 4:
                     System.out.print("Digite o ID do evento a excluir: ");
                     int idExcluir = scanner.nextInt();
                     if (gerenciador.excluirEvento(idExcluir)) {
@@ -92,11 +113,11 @@ public class EventoApp {
                     }
                     break;
 
-                case 5: 
+                case 5:
                     gerenciador.listarEventos();
                     break;
 
-                case 6: 
+                case 6:
                     System.out.println("Saindo do sistema...");
                     break;
 
@@ -108,5 +129,3 @@ public class EventoApp {
         scanner.close();
     }
 }
-
-    
