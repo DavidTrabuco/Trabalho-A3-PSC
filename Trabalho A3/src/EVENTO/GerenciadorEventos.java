@@ -4,19 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GerenciadorEventos {
+    
     private List<Evento> eventos;
     private int proximoId = 1;
 
     public GerenciadorEventos() {
         eventos = new ArrayList<>();
-        proximoId = 1;
+        proximoId ++;
     }
 public  void incluirEvento(Evento evento) {
     eventos.add(evento);
     System.out.println("Evento incluído com sucesso!");
 }
     public void incluirEvento(String nome, String data, Organizador organizador, Local local, String categoria) {
-        Evento evento = new Evento(proximoId++, nome, data, organizador, local, categoria);
+        Evento evento = new EventoPresencial(proximoId++, nome, data, organizador, local, categoria, 100 ); // exemplo de capacidade
         eventos.add(evento);
         System.out.println("Evento incluído!");
     }
@@ -29,7 +30,7 @@ public  void incluirEvento(Evento evento) {
     }
     public void incluirEventoPresencial(String nome, String data, Organizador organizador, Local local, String categoria,
             int capacidadeMaxima) {
-        Evento evento = new EventoPresencial(proximoId++, nome, data, organizador, local, categoria, capacidadeMaxima);
+        Evento evento = new EventoPresencial(proximoId++, nome, data, organizador, local, categoria, capacidadeMaxima );
         eventos.add(evento);
         System.out.println("Evento presencial incluído!");
 

@@ -26,7 +26,12 @@ public class EventoVirtual extends  Evento {
         this.plataforma = plataforma;
     }
     @Override
-    public String toString() {
-        return "EventoVirtual [linkAcesso=" + linkAcesso + ", plataforma=" + plataforma + ", " + super.toString() + "]";
+    public String getDescriçãoEvento() {
+        return "Evento Virtual: " + getNome() + ", Data: " + getData() + ", Plataforma: " + plataforma + ", Link de Acesso: " + linkAcesso;
+    }
+
+    @Override
+    public String getStatus(){
+        return "Disponível";
     }
 }

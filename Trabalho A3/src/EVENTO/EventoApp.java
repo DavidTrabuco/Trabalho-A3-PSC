@@ -42,6 +42,10 @@ public class EventoApp {
                     String endereco = scanner.nextLine();
                     System.out.print("Categoria (ex.: Show, Teatro, Exposição): ");
                     String categoria = scanner.nextLine();
+                    System.out.println("=== Dados do Evento ===");
+                    System.out.println("Nome:" + nome + ", Data: " + data + ", Organizador: " + nomeOrganizador+ ", Contato: " + contato + ", Local: " + nomeLocal + ", Endereço: " + endereco + ", Categoria: " + categoria);
+                    
+
 
                     Organizador organizador = new Organizador(nomeOrganizador, contato);
                     Local local = new Local(nomeLocal, endereco);
@@ -51,7 +55,7 @@ public class EventoApp {
                         System.out.print("Capacidade máxima: ");
                         int capacidade = scanner.nextInt();
                         scanner.nextLine();
-                        gerenciador.incluirEventoPresencial(nome, data, organizador, local, categoria, capacidade);
+                        gerenciador.incluirEventoPresencial(nome, data, organizador, local, categoria, capacidade );
                     } else if (tipoEvento == 2) {
                         System.out.print("Plataforma (ex.: Zoom, Meet): ");
                         String plataforma = scanner.nextLine();
