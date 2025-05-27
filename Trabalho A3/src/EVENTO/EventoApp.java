@@ -27,7 +27,7 @@ public class EventoApp {
                     System.out.println("=== Incluir Novo Evento ===");
                     System.out.print("Tipo de evento (1 - Presencial, 2 - Virtual): ");
                     int tipoEvento = scanner.nextInt();
-                    scanner.nextLine(); 
+                    scanner.nextLine();
                     System.out.print("Nome do evento: ");
                     String nome = scanner.nextLine();
                     System.out.print("Data do evento (DIA/MES/ANO ): ");
@@ -57,12 +57,12 @@ public class EventoApp {
                         String plataforma = scanner.nextLine();
                         System.out.print("Link de acesso: ");
                         String link = scanner.nextLine();
-                        gerenciador.incluirEventoVirtual(nomeLocal, data, organizador, local, categoria, link, plataforma);
+                        gerenciador.incluirEventoVirtual(nomeLocal, data, organizador, local, categoria, link,
+                                plataforma);
                     } else {
                         System.out.println("Tipo de evento inválido.");
                     }
                     break;
-                    
 
                 case 2:
                     System.out.print("Digite o ID do evento: ");

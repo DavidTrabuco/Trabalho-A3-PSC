@@ -11,15 +11,10 @@ public class GerenciadorEventos {
         eventos = new ArrayList<>();
         proximoId = 1;
     }
-    
-
 public  void incluirEvento(Evento evento) {
     eventos.add(evento);
-    System.out.println("Evento incluído!");
+    System.out.println("Evento incluído com sucesso!");
 }
-
-
-
     public void incluirEvento(String nome, String data, Organizador organizador, Local local, String categoria) {
         Evento evento = new Evento(proximoId++, nome, data, organizador, local, categoria);
         eventos.add(evento);
@@ -43,7 +38,6 @@ public  void incluirEvento(Evento evento) {
             eventos.remove(evento); // Remove o evento se a capacidade for inválida
         }
     }
-
     public Evento consultarEvento(int id) {
         for (Evento evento : eventos) {
             if (evento.getId() == id) {
@@ -52,7 +46,6 @@ public  void incluirEvento(Evento evento) {
         }
         return null;
     }
-
     public boolean alterarEvento(int id, String novoNome, String novaData, Organizador novoOrganizador, Local novoLocal,
             String novaCategoria) {
         Evento evento = consultarEvento(id);
@@ -67,7 +60,6 @@ public  void incluirEvento(Evento evento) {
         }
         return false;
     }
-
     public boolean excluirEvento(int id) {
         Evento evento = consultarEvento(id);
         if (evento != null) {
@@ -77,7 +69,6 @@ public  void incluirEvento(Evento evento) {
         }
         return false;
     }
-
     public void listarEventos() {
         if (eventos.isEmpty()) { // Verifica se a lista de eventos está vazia
             System.out.println("Nenhum evento cadastrado.");
@@ -87,9 +78,5 @@ public  void incluirEvento(Evento evento) {
             }
         }
     }
-   
-
-
-    
 
 }
