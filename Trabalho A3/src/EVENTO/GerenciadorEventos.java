@@ -37,6 +37,11 @@ public  void incluirEvento(Evento evento) {
         Evento evento = new EventoPresencial(proximoId++, nome, data, organizador, local, categoria, capacidadeMaxima);
         eventos.add(evento);
         System.out.println("Evento presencial incluído!");
+
+        if(capacidadeMaxima <= 0) {
+            System.out.println("Capacidade máxima deve ser maior que zero.");
+            eventos.remove(evento); // Remove o evento se a capacidade for inválida
+        }
     }
 
     public Evento consultarEvento(int id) {

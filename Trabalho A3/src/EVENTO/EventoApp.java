@@ -27,6 +27,7 @@ public class EventoApp {
                     System.out.println("=== Incluir Novo Evento ===");
                     System.out.print("Tipo de evento (1 - Presencial, 2 - Virtual): ");
                     int tipoEvento = scanner.nextInt();
+                    scanner.nextLine(); 
                     System.out.print("Nome do evento: ");
                     String nome = scanner.nextLine();
                     System.out.print("Data do evento (DIA/MES/ANO ): ");

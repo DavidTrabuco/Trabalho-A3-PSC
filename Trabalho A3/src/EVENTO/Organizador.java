@@ -11,16 +11,16 @@ public class Organizador {
         this.contato = contato;
     }
 
-    public String getnome() {
+    public String getNome() {
         return nome;
     }
-    public void setnome(String nome) {
+    public void setNome(String nome) {
         this.nome = nome;
     }
-    public String getcontato() {
+    public String getContato() {
         return contato;
     }
-    public void setcontato(String contato) {
+    public void setContato(String contato) {
         this.contato = contato;
     }
     @Override 
