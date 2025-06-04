@@ -22,18 +22,25 @@ public class Interface extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Painel principal
+        // Painel principal com cor de fundo
         JPanel painel = new JPanel(new BorderLayout());
+        painel.setBackground(new Color(240, 248, 255)); // AliceBlue, um azul claro suave
         setContentPane(painel);
 
         // Tabela de eventos
         tableModel = new EventoTableModel(gerenciador);
         tabelaEventos = new JTable(tableModel);
+        tabelaEventos.setBackground(Color.WHITE); // Fundo branco para a tabela
+        tabelaEventos.setGridColor(new Color(200, 200, 200)); // Cor das linhas da grade
+        tabelaEventos.setSelectionBackground(new Color(173, 216, 230)); // Azul claro para seleção
+        tabelaEventos.setSelectionForeground(Color.BLACK); // Texto preto na seleção
         JScrollPane scrollPane = new JScrollPane(tabelaEventos);
+        scrollPane.getViewport().setBackground(Color.WHITE); // Fundo do scroll
         painel.add(scrollPane, BorderLayout.CENTER);
 
-        // Painel de formulário
+        // Painel de formulário com cor de fundo
         JPanel painelFormulario = new JPanel(new GridBagLayout());
+        painelFormulario.setBackground(new Color(245, 245, 220)); // Beige, para destacar o formulário
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -41,88 +48,130 @@ public class Interface extends JFrame {
         // Campos do formulário
         gbc.gridx = 0;
         gbc.gridy = 0;
-        painelFormulario.add(new JLabel("Tipo de Evento:"), gbc);
+        JLabel lblTipoEvento = new JLabel("Tipo de Evento:");
+        lblTipoEvento.setForeground(new Color(25, 25, 112)); // Azul escuro para o texto
+        painelFormulario.add(lblTipoEvento, gbc);
         cbTipoEvento = new JComboBox<>(new String[]{"Presencial", "Virtual"});
+        cbTipoEvento.setBackground(Color.WHITE); // Fundo branco para o combo
         gbc.gridx = 1;
         painelFormulario.add(cbTipoEvento, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        painelFormulario.add(new JLabel("Nome do Evento:"), gbc);
+        JLabel lblNome = new JLabel("Nome do Evento:");
+        lblNome.setForeground(new Color(25, 25, 112));
+        painelFormulario.add(lblNome, gbc);
         txtNome = new JTextField(20);
+        txtNome.setBackground(new Color(255, 245, 238)); // Seashell, fundo claro
         gbc.gridx = 1;
         painelFormulario.add(txtNome, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
-        painelFormulario.add(new JLabel("Data (dd/MM/yyyy):"), gbc);
+        JLabel lblData = new JLabel("Data (dd/MM/yyyy):");
+        lblData.setForeground(new Color(25, 25, 112));
+        painelFormulario.add(lblData, gbc);
         txtData = new JFormattedTextField(DateTimeFormatter.ofPattern("dd/MM/yyyy").toFormat());
         txtData.setColumns(20);
+        txtData.setBackground(new Color(255, 245, 238));
         gbc.gridx = 1;
         painelFormulario.add(txtData, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        painelFormulario.add(new JLabel("Nome do Local:"), gbc);
+        JLabel lblLocalNome = new JLabel("Nome do Local:");
+        lblLocalNome.setForeground(new Color(25, 25, 112));
+        painelFormulario.add(lblLocalNome, gbc);
         txtLocalNome = new JTextField(20);
+        txtLocalNome.setBackground(new Color(255, 245, 238));
         gbc.gridx = 1;
         painelFormulario.add(txtLocalNome, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
-        painelFormulario.add(new JLabel("Endereço do Local:"), gbc);
+        JLabel lblLocalEndereco = new JLabel("Endereço do Local:");
+        lblLocalEndereco.setForeground(new Color(25, 25, 112));
+        painelFormulario.add(lblLocalEndereco, gbc);
         txtLocalEndereco = new JTextField(20);
+        txtLocalEndereco.setBackground(new Color(255, 245, 238));
         gbc.gridx = 1;
         painelFormulario.add(txtLocalEndereco, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 5;
-        painelFormulario.add(new JLabel("Nome do Organizador:"), gbc);
+        JLabel lblOrganizadorNome = new JLabel("Nome do Organizador:");
+        lblOrganizadorNome.setForeground(new Color(25, 25, 112));
+        painelFormulario.add(lblOrganizadorNome, gbc);
         txtOrganizadorNome = new JTextField(20);
+        txtOrganizadorNome.setBackground(new Color(255, 245, 238));
         gbc.gridx = 1;
         painelFormulario.add(txtOrganizadorNome, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 6;
-        painelFormulario.add(new JLabel("Contato do Organizador:"), gbc);
+        JLabel lblOrganizadorContato = new JLabel("Contato do Organizador:");
+        lblOrganizadorContato.setForeground(new Color(25, 25, 112));
+        painelFormulario.add(lblOrganizadorContato, gbc);
         txtOrganizadorContato = new JTextField(20);
+        txtOrganizadorContato.setBackground(new Color(255, 245, 238));
         gbc.gridx = 1;
         painelFormulario.add(txtOrganizadorContato, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 7;
-        painelFormulario.add(new JLabel("Categoria:"), gbc);
+        JLabel lblCategoria = new JLabel("Categoria:");
+        lblCategoria.setForeground(new Color(25, 25, 112));
+        painelFormulario.add(lblCategoria, gbc);
         txtCategoria = new JTextField(20);
+        txtCategoria.setBackground(new Color(255, 245, 238));
         gbc.gridx = 1;
         painelFormulario.add(txtCategoria, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 8;
-        painelFormulario.add(new JLabel("Capacidade Máxima (Presencial):"), gbc);
+        JLabel lblCapacidade = new JLabel("Capacidade Máxima (Presencial):");
+        lblCapacidade.setForeground(new Color(25, 25, 112));
+        painelFormulario.add(lblCapacidade, gbc);
         txtCapacidade = new JTextField(20);
+        txtCapacidade.setBackground(new Color(255, 245, 238));
         gbc.gridx = 1;
         painelFormulario.add(txtCapacidade, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 9;
-        painelFormulario.add(new JLabel("Link de Acesso (Virtual):"), gbc);
+        JLabel lblLink = new JLabel("Link de Acesso (Virtual):");
+        lblLink.setForeground(new Color(25, 25, 112));
+        painelFormulario.add(lblLink, gbc);
         txtLink = new JTextField(20);
+        txtLink.setBackground(new Color(255, 245, 238));
         gbc.gridx = 1;
         painelFormulario.add(txtLink, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 10;
-        painelFormulario.add(new JLabel("Plataforma (Virtual):"), gbc);
+        JLabel lblPlataforma = new JLabel("Plataforma (Virtual):");
+        lblPlataforma.setForeground(new Color(25, 25, 112));
+        painelFormulario.add(lblPlataforma, gbc);
         txtPlataforma = new JTextField(20);
+        txtPlataforma.setBackground(new Color(255, 245, 238));
         gbc.gridx = 1;
         painelFormulario.add(txtPlataforma, gbc);
 
-        // Botões
+        // Painel de botões com cor de fundo
         JPanel painelBotoes = new JPanel(new FlowLayout());
+        painelBotoes.setBackground(new Color(230, 230, 250)); // Lavender, fundo suave
         btnAdicionar = new JButton("Adicionar");
+        btnAdicionar.setBackground(new Color(60, 179, 113)); // Verde para "Adicionar"
+        btnAdicionar.setForeground(Color.WHITE); // Texto branco
         btnEditar = new JButton("Editar");
+        btnEditar.setBackground(new Color(100, 149, 237)); // Azul para "Editar"
+        btnEditar.setForeground(Color.WHITE);
         btnExcluir = new JButton("Excluir");
+        btnExcluir.setBackground(new Color(220, 20, 60)); // Vermelho para "Excluir"
+        btnExcluir.setForeground(Color.WHITE);
         btnSalvar = new JButton("Salvar");
+        btnSalvar.setBackground(new Color(255, 215, 0)); // Amarelo para "Salvar"
+        btnSalvar.setForeground(Color.BLACK);
         btnSalvar.setEnabled(false);
 
         painelBotoes.add(btnAdicionar);
@@ -151,6 +200,7 @@ public class Interface extends JFrame {
         });
     }
 
+    // Os métodos abaixo permanecem inalterados
     private void adicionarEvento() {
         if (!validarCampos()) return;
 
@@ -346,5 +396,4 @@ class EventoTableModel extends javax.swing.table.AbstractTableModel {
                 return "";
         }
     }
-
 }
