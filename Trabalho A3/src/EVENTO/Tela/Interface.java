@@ -1,6 +1,14 @@
-package EVENTO;
+package EVENTO.Tela;
 
 import javax.swing.*;
+
+import EVENTO.CRUD.GerenciadorEventos;
+import EVENTO.Entidades.Evento;
+import EVENTO.Entidades.EventoPresencial;
+import EVENTO.Entidades.EventoVirtual;
+import EVENTO.Entidades.Local;
+import EVENTO.Entidades.Organizador;
+
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

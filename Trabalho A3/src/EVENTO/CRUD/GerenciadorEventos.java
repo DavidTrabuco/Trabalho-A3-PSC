@@ -1,7 +1,13 @@
-package EVENTO;
+package EVENTO.CRUD;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import EVENTO.Entidades.Evento;
+import EVENTO.Entidades.EventoPresencial;
+import EVENTO.Entidades.EventoVirtual;
+import EVENTO.Entidades.Local;
+import EVENTO.Entidades.Organizador;
 
 public class GerenciadorEventos {
     private List<Evento> eventos;

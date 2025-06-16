@@ -1,4 +1,4 @@
-package EVENTO;
+package EVENTO.Entidades;
 
 public abstract class Evento {
 

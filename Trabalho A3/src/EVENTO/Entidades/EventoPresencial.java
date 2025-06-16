@@ -1,4 +1,4 @@
-package EVENTO;
+package EVENTO.Entidades;
 
 public class EventoPresencial extends Evento {
 
