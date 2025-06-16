@@ -1,4 +1,4 @@
-package EVENTO.Entidades;
+package  EVENTO;
 
 public class Organizador {
 

@@ -1,0 +1,295 @@
+package EVENTO;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class CadastroUsuario extends JFrame {
+    private List<Usuario> usuarios;
+    private JTextField txtNome, txtEmail;
+    private JPasswordField txtSenha;
+    private JComboBox<String> cbTipoUsuario;
+    private JButton btnCadastrar, btnCancelar;
+    private GerenciadorEventos gerenciador;
+
+    public CadastroUsuario(GerenciadorEventos gerenciador) {
+        this.gerenciador = gerenciador;
+        usuarios = new ArrayList<>();
+        setTitle("Cadastro de Usuário");
+        setSize(500, 400);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setResizable(false);
+
+        // Painel principal com fundo branco
+        JPanel painel = new JPanel(new BorderLayout());
+        painel.setBackground(Color.WHITE);
+        painel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        setContentPane(painel);
+
+        // Painel de formulário
+        JPanel painelFormulario = new JPanel(new GridBagLayout());
+        painelFormulario.setBackground(Color.WHITE);
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+
+        // Título
+        JLabel lblTitulo = new JLabel("Cadastrar Novo Usuário", SwingConstants.CENTER);
+        lblTitulo.setFont(new Font("Roboto", Font.BOLD, 18));
+        lblTitulo.setForeground(new Color(33, 37, 41));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        painelFormulario.add(lblTitulo, gbc);
+
+        // Campo Nome
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        JLabel lblNome = new JLabel("Nome:");
+        lblNome.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblNome.setForeground(new Color(33, 37, 41));
+        painelFormulario.add(lblNome, gbc);
+        txtNome = new JTextField(20);
+        txtNome.setFont(new Font("Roboto", Font.PLAIN, 14));
+        txtNome.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        gbc.gridx = 1;
+        painelFormulario.add(txtNome, gbc);
+
+        // Campo Email
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        JLabel lblEmail = new JLabel("Email:");
+        lblEmail.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblEmail.setForeground(new Color(33, 37, 41));
+        painelFormulario.add(lblEmail, gbc);
+        txtEmail = new JTextField(20);
+        txtEmail.setFont(new Font("Roboto", Font.PLAIN, 14));
+        txtEmail.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        gbc.gridx = 1;
+        painelFormulario.add(txtEmail, gbc);
+
+        // Campo Senha
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        JLabel lblSenha = new JLabel("Senha:");
+        lblSenha.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblSenha.setForeground(new Color(33, 37, 41));
+        painelFormulario.add(lblSenha, gbc);
+        txtSenha = new JPasswordField(20);
+        txtSenha.setFont(new Font("Roboto", Font.PLAIN, 14));
+        txtSenha.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        gbc.gridx = 1;
+        painelFormulario.add(txtSenha, gbc);
+
+        // Campo Tipo de Usuário
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        JLabel lblTipoUsuario = new JLabel("Tipo de Usuário:");
+        lblTipoUsuario.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblTipoUsuario.setForeground(new Color(33, 37, 41));
+        painelFormulario.add(lblTipoUsuario, gbc);
+        cbTipoUsuario = new JComboBox<>(new String[]{"Consultor", "Administrador"});
+        cbTipoUsuario.setFont(new Font("Roboto", Font.PLAIN, 14));
+        cbTipoUsuario.setBackground(Color.WHITE);
+        cbTipoUsuario.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        gbc.gridx = 1;
+        painelFormulario.add(cbTipoUsuario, gbc);
+
+        // Painel de botões
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        painelBotoes.setBackground(Color.WHITE);
+        btnCadastrar = createStyledButton("Cadastrar", new Color(0, 153, 102)); // Verde Sympla
+        btnCancelar = createStyledButton("Cancelar", new Color(220, 53, 69)); // Vermelho
+        painelBotoes.add(btnCancelar);
+        painelBotoes.add(btnCadastrar);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.gridwidth = 2;
+        painelFormulario.add(painelBotoes, gbc);
+
+        painel.add(painelFormulario, BorderLayout.CENTER);
+
+        // Ações dos botões
+        btnCadastrar.addActionListener(e -> cadastrarUsuario());
+        btnCancelar.addActionListener(e -> dispose());
+    }
+
+    private JButton createStyledButton(String text, Color bgColor) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Roboto", Font.BOLD, 14));
+        button.setForeground(Color.WHITE);
+        button.setBackground(bgColor);
+        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        button.setFocusPainted(false);
+        button.setOpaque(true);
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(bgColor.brighter());
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(bgColor);
+            }
+        });
+        return button;
+    }
+
+    private void cadastrarUsuario() {
+        if (!validarCampos()) return;
+
+        String nome = txtNome.getText();
+        String email = txtEmail.getText();
+        String senha = new String(txtSenha.getPassword());
+        String tipo = (String) cbTipoUsuario.getSelectedItem();
+        TipoUsuario tipoUsuario = tipo.equals("Administrador") ? TipoUsuario.ADMINISTRADOR : TipoUsuario.CONSULTOR;
+
+        Usuario usuario = new Usuario(nome, email, senha, tipoUsuario);
+        usuarios.add(usuario);
+        JOptionPane.showMessageDialog(this, "Usuário cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        limparFormulario();
+
+        // Para demonstração: abrir a interface apropriada com base no tipo de usuário
+        if (tipoUsuario == TipoUsuario.ADMINISTRADOR) {
+            new Interface(gerenciador).setVisible(true);
+        } else {
+            new InterfaceConsulta(gerenciador).setVisible(true);
+        }
+        dispose();
+    }
+
+    private boolean validarCampos() {
+        if (txtNome.getText().isEmpty() || txtEmail.getText().isEmpty() || txtSenha.getPassword().length == 0) {
+            JOptionPane.showMessageDialog(this, "Preencha todos os campos obrigatórios!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (!txtEmail.getText().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+            JOptionPane.showMessageDialog(this, "Email inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    private void limparFormulario() {
+        txtNome.setText("");
+        txtEmail.setText("");
+        txtSenha.setText("");
+        cbTipoUsuario.setSelectedIndex(0);
+    }
+
+    public static void main(String[] args) {
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        SwingUtilities.invokeLater(() -> {
+            GerenciadorEventos gerenciador = new GerenciadorEventos();
+            CadastroUsuario app = new CadastroUsuario(gerenciador);
+            app.setVisible(true);
+        });
+    }
+}
+
+// Enum para tipo de usuário
+enum TipoUsuario {
+    CONSULTOR, ADMINISTRADOR
+}
+
+// Classe Usuário
+class Usuario {
+    private String nome;
+    private String email;
+    private String senha;
+    private TipoUsuario tipo;
+
+    public Usuario(String nome, String email, String senha, TipoUsuario tipo) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+        this.tipo = tipo;
+    }
+
+    public String getNome() { return nome; }
+    public String getEmail() { return email; }
+    public String getSenha() { return senha; }
+    public TipoUsuario getTipo() { return tipo; }
+}
+
+// Interface de Consulta para Usuário Consultor
+class InterfaceConsulta extends JFrame {
+    private GerenciadorEventos gerenciador;
+    private JTable tabelaEventos;
+    private EventoTableModel tableModel;
+
+    public InterfaceConsulta(GerenciadorEventos gerenciador) {
+        this.gerenciador = gerenciador;
+        setTitle("Consulta de Eventos Culturais");
+        setSize(900, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // Painel principal
+        JPanel painel = new JPanel(new BorderLayout());
+        painel.setBackground(Color.WHITE);
+        painel.setBorder(new EmptyBorder(20, 20, 20, 20));
+        setContentPane(painel);
+
+        // Tabela de eventos
+        tableModel = new EventoTableModel(gerenciador);
+        tabelaEventos = new JTable(tableModel);
+        tabelaEventos.setBackground(Color.WHITE);
+        tabelaEventos.setRowHeight(30);
+        tabelaEventos.setShowGrid(false);
+        tabelaEventos.setIntercellSpacing(new Dimension(0, 0));
+        tabelaEventos.setSelectionBackground(new Color(235, 245, 255));
+        tabelaEventos.setSelectionForeground(Color.BLACK);
+        tabelaEventos.setFont(new Font("Roboto", Font.PLAIN, 14));
+
+        // Estilizar cabeçalho
+        JTableHeader header = tabelaEventos.getTableHeader();
+        header.setBackground(new Color(245, 245, 245));
+        header.setFont(new Font("Roboto", Font.BOLD, 14));
+        header.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        JScrollPane scrollPane = new JScrollPane(tabelaEventos);
+        scrollPane.getViewport().setBackground(Color.WHITE);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
+        painel.add(scrollPane, BorderLayout.CENTER);
+
+        // Botão Voltar
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        painelBotoes.setBackground(Color.WHITE);
+        JButton btnVoltar = createStyledButton("Voltar", new Color(220, 53, 69));
+        btnVoltar.addActionListener(e -> {
+            new CadastroUsuario(gerenciador).setVisible(true);
+            dispose();
+        });
+        painelBotoes.add(btnVoltar);
+        painel.add(painelBotoes, BorderLayout.SOUTH);
+    }
+
+    private JButton createStyledButton(String text, Color bgColor) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Roboto", Font.BOLD, 14));
+        button.setForeground(Color.WHITE);
+        button.setBackground(bgColor);
+        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        button.setFocusPainted(false);
+        button.setOpaque(true);
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(bgColor.brighter());
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(bgColor);
+            }
+        });
+        return button;
+    }
+    
+}

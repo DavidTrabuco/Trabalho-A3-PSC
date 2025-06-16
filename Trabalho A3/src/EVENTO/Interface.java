@@ -1,14 +1,8 @@
-package EVENTO.Tela;
+package EVENTO;
 
 import javax.swing.*;
-
-import EVENTO.CRUD.GerenciadorEventos;
-import EVENTO.Entidades.Evento;
-import EVENTO.Entidades.EventoPresencial;
-import EVENTO.Entidades.EventoVirtual;
-import EVENTO.Entidades.Local;
-import EVENTO.Entidades.Organizador;
-
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,163 +17,211 @@ public class Interface extends JFrame {
     private JButton btnAdicionar, btnEditar, btnExcluir, btnSalvar;
     private int editIndex = -1;
 
+    
+    
+
     public Interface() {
         gerenciador = new GerenciadorEventos();
         setTitle("Gerenciamento de Eventos Culturais");
-        setSize(800, 600);
+        setSize(900, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        // Painel principal com cor de fundo
+        // Painel principal com fundo branco (Sympla-inspired)
         JPanel painel = new JPanel(new BorderLayout());
-        painel.setBackground(new Color(240, 248, 255)); // AliceBlue, um azul claro suave
+        painel.setBackground(Color.WHITE);
+        painel.setBorder(new EmptyBorder(20, 20, 20, 20)); // Espaçamento
         setContentPane(painel);
 
         // Tabela de eventos
         tableModel = new EventoTableModel(gerenciador);
         tabelaEventos = new JTable(tableModel);
-        tabelaEventos.setBackground(Color.WHITE); // Fundo branco para a tabela
-        tabelaEventos.setGridColor(new Color(200, 200, 200)); // Cor das linhas da grade
-        tabelaEventos.setSelectionBackground(new Color(173, 216, 230)); // Azul claro para seleção
-        tabelaEventos.setSelectionForeground(Color.BLACK); // Texto preto na seleção
+        tabelaEventos.setBackground(Color.WHITE);
+        tabelaEventos.setRowHeight(30); // Altura das linhas para melhor legibilidade
+        tabelaEventos.setShowGrid(false); // Remove linhas de grade
+        tabelaEventos.setIntercellSpacing(new Dimension(0, 0)); // Remove espaçamento entre células
+        tabelaEventos.setSelectionBackground(new Color(235, 245, 255)); // Azul claro suave
+        tabelaEventos.setSelectionForeground(Color.BLACK);
+        tabelaEventos.setFont(new Font("Roboto", Font.PLAIN, 14)); // Fonte moderna
+
+        // Estilizar cabeçalho da tabela
+        JTableHeader header = tabelaEventos.getTableHeader();
+        header.setBackground(new Color(245, 245, 245)); // Cinza claro
+        header.setFont(new Font("Roboto", Font.BOLD, 14));
+        header.setBorder(new EmptyBorder(10, 10, 10, 10));
+
         JScrollPane scrollPane = new JScrollPane(tabelaEventos);
-        scrollPane.getViewport().setBackground(Color.WHITE); // Fundo do scroll
+        scrollPane.getViewport().setBackground(Color.WHITE);
+        scrollPane.setBorder(BorderFactory.createEmptyBorder());
         painel.add(scrollPane, BorderLayout.CENTER);
 
-        // Painel de formulário com cor de fundo
+        // Painel de formulário
         JPanel painelFormulario = new JPanel(new GridBagLayout());
-        painelFormulario.setBackground(new Color(245, 245, 220)); // Beige, para destacar o formulário
+        painelFormulario.setBackground(Color.WHITE);
+        painelFormulario.setBorder(new EmptyBorder(20, 20, 20, 20));
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
 
         // Campos do formulário
         gbc.gridx = 0;
         gbc.gridy = 0;
         JLabel lblTipoEvento = new JLabel("Tipo de Evento:");
-        lblTipoEvento.setForeground(new Color(25, 25, 112)); // Azul escuro para o texto
+        lblTipoEvento.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblTipoEvento.setForeground(new Color(33, 37, 41)); // Cinza escuro
         painelFormulario.add(lblTipoEvento, gbc);
         cbTipoEvento = new JComboBox<>(new String[]{"Presencial", "Virtual"});
-        cbTipoEvento.setBackground(Color.WHITE); // Fundo branco para o combo
+        cbTipoEvento.setFont(new Font("Roboto", Font.PLAIN, 14));
+        cbTipoEvento.setBackground(Color.WHITE);
+        cbTipoEvento.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         gbc.gridx = 1;
         painelFormulario.add(cbTipoEvento, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
         JLabel lblNome = new JLabel("Nome do Evento:");
-        lblNome.setForeground(new Color(25, 25, 112));
+        lblNome.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblNome.setForeground(new Color(33, 37, 41));
         painelFormulario.add(lblNome, gbc);
         txtNome = new JTextField(20);
-        txtNome.setBackground(new Color(255, 245, 238)); // Seashell, fundo claro
+        txtNome.setFont(new Font("Roboto", Font.PLAIN, 14));
+        txtNome.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         gbc.gridx = 1;
         painelFormulario.add(txtNome, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 2;
         JLabel lblData = new JLabel("Data (dd/MM/yyyy):");
-        lblData.setForeground(new Color(25, 25, 112));
+        lblData.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblData.setForeground(new Color(33, 37, 41));
         painelFormulario.add(lblData, gbc);
         txtData = new JFormattedTextField(DateTimeFormatter.ofPattern("dd/MM/yyyy").toFormat());
         txtData.setColumns(20);
-        txtData.setBackground(new Color(255, 245, 238));
+        txtData.setFont(new Font("Roboto", Font.PLAIN, 14));
+        txtData.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         gbc.gridx = 1;
         painelFormulario.add(txtData, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
         JLabel lblLocalNome = new JLabel("Nome do Local:");
-        lblLocalNome.setForeground(new Color(25, 25, 112));
+        lblLocalNome.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblLocalNome.setForeground(new Color(33, 37, 41));
         painelFormulario.add(lblLocalNome, gbc);
         txtLocalNome = new JTextField(20);
-        txtLocalNome.setBackground(new Color(255, 245, 238));
+        txtLocalNome.setFont(new Font("Roboto", Font.PLAIN, 14));
+        txtLocalNome.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         gbc.gridx = 1;
         painelFormulario.add(txtLocalNome, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 4;
         JLabel lblLocalEndereco = new JLabel("Endereço do Local:");
-        lblLocalEndereco.setForeground(new Color(25, 25, 112));
+        lblLocalEndereco.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblLocalEndereco.setForeground(new Color(33, 37, 41));
         painelFormulario.add(lblLocalEndereco, gbc);
         txtLocalEndereco = new JTextField(20);
-        txtLocalEndereco.setBackground(new Color(255, 245, 238));
+        txtLocalEndereco.setFont(new Font("Roboto", Font.PLAIN, 14));
+        txtLocalEndereco.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         gbc.gridx = 1;
         painelFormulario.add(txtLocalEndereco, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 5;
         JLabel lblOrganizadorNome = new JLabel("Nome do Organizador:");
-        lblOrganizadorNome.setForeground(new Color(25, 25, 112));
+        lblOrganizadorNome.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblOrganizadorNome.setForeground(new Color(33, 37, 41));
         painelFormulario.add(lblOrganizadorNome, gbc);
         txtOrganizadorNome = new JTextField(20);
-        txtOrganizadorNome.setBackground(new Color(255, 245, 238));
+        txtOrganizadorNome.setFont(new Font("Roboto", Font.PLAIN, 14));
+        txtOrganizadorNome.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         gbc.gridx = 1;
         painelFormulario.add(txtOrganizadorNome, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 6;
         JLabel lblOrganizadorContato = new JLabel("Contato do Organizador:");
-        lblOrganizadorContato.setForeground(new Color(25, 25, 112));
+        lblOrganizadorContato.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblOrganizadorContato.setForeground(new Color(33, 37, 41));
         painelFormulario.add(lblOrganizadorContato, gbc);
         txtOrganizadorContato = new JTextField(20);
-        txtOrganizadorContato.setBackground(new Color(255, 245, 238));
+        txtOrganizadorContato.setFont(new Font("Roboto", Font.PLAIN, 14));
+        txtOrganizadorContato.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         gbc.gridx = 1;
         painelFormulario.add(txtOrganizadorContato, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 7;
         JLabel lblCategoria = new JLabel("Categoria:");
-        lblCategoria.setForeground(new Color(25, 25, 112));
+        lblCategoria.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblCategoria.setForeground(new Color(33, 37, 41));
         painelFormulario.add(lblCategoria, gbc);
         txtCategoria = new JTextField(20);
-        txtCategoria.setBackground(new Color(255, 245, 238));
+        txtCategoria.setFont(new Font("Roboto", Font.PLAIN, 14));
+        txtCategoria.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         gbc.gridx = 1;
         painelFormulario.add(txtCategoria, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 8;
         JLabel lblCapacidade = new JLabel("Capacidade Máxima (Presencial):");
-        lblCapacidade.setForeground(new Color(25, 25, 112));
+        lblCapacidade.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblCapacidade.setForeground(new Color(33, 37, 41));
         painelFormulario.add(lblCapacidade, gbc);
         txtCapacidade = new JTextField(20);
-        txtCapacidade.setBackground(new Color(255, 245, 238));
+        txtCapacidade.setFont(new Font("Roboto", Font.PLAIN, 14));
+        txtCapacidade.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
         gbc.gridx = 1;
         painelFormulario.add(txtCapacidade, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 9;
         JLabel lblLink = new JLabel("Link de Acesso (Virtual):");
-        lblLink.setForeground(new Color(25, 25, 112));
+        lblLink.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblLink.setForeground(new Color(33, 37, 41));
         painelFormulario.add(lblLink, gbc);
         txtLink = new JTextField(20);
-        txtLink.setBackground(new Color(255, 245, 238));
+        txtLink.setFont(new Font("Roboto", Font.PLAIN, 14));
+        txtLink.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        txtLink.setEnabled(false);
         gbc.gridx = 1;
         painelFormulario.add(txtLink, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 10;
         JLabel lblPlataforma = new JLabel("Plataforma (Virtual):");
-        lblPlataforma.setForeground(new Color(25, 25, 112));
+        lblPlataforma.setFont(new Font("Roboto", Font.BOLD, 14));
+        lblPlataforma.setForeground(new Color(33, 37, 41));
         painelFormulario.add(lblPlataforma, gbc);
         txtPlataforma = new JTextField(20);
-        txtPlataforma.setBackground(new Color(255, 245, 238));
+        txtPlataforma.setFont(new Font("Roboto", Font.PLAIN, 14));
+        txtPlataforma.setBorder(BorderFactory.createLineBorder(new Color(200, 200, 200)));
+        txtPlataforma.setEnabled(false);
         gbc.gridx = 1;
         painelFormulario.add(txtPlataforma, gbc);
 
-        // Painel de botões com cor de fundo
-        JPanel painelBotoes = new JPanel(new FlowLayout());
-        painelBotoes.setBackground(new Color(230, 230, 250)); // Lavender, fundo suave
-        btnAdicionar = new JButton("Adicionar");
-        btnAdicionar.setBackground(new Color(60, 179, 113)); // Verde para "Adicionar"
-        btnAdicionar.setForeground(Color.WHITE); // Texto branco
-        btnEditar = new JButton("Editar");
-        btnEditar.setBackground(new Color(100, 149, 237)); // Azul para "Editar"
-        btnEditar.setForeground(Color.WHITE);
-        btnExcluir = new JButton("Excluir");
-        btnExcluir.setBackground(new Color(220, 20, 60)); // Vermelho para "Excluir"
-        btnExcluir.setForeground(Color.WHITE);
-        btnSalvar = new JButton("Salvar");
-        btnSalvar.setBackground(new Color(255, 215, 0)); // Amarelo para "Salvar"
-        btnSalvar.setForeground(Color.BLACK);
+        // Listener para o tipo de evento
+        cbTipoEvento.addActionListener(e -> {
+            boolean isPresencial = cbTipoEvento.getSelectedItem().equals("Presencial");
+            txtLink.setEnabled(!isPresencial);
+            txtPlataforma.setEnabled(!isPresencial);
+            txtCapacidade.setEnabled(isPresencial);
+            if (isPresencial) {
+                txtLink.setText("");
+                txtPlataforma.setText("");
+            } else {
+                txtCapacidade.setText("");
+            }
+        });
+
+        // Painel de botões
+        JPanel painelBotoes = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+        painelBotoes.setBackground(Color.WHITE);
+        btnAdicionar = createStyledButton("Adicionar", new Color(0, 153, 102)); // Verde Sympla
+        btnEditar = createStyledButton("Editar", new Color(88, 86, 214)); // Roxo Sympla
+        btnExcluir = createStyledButton("Excluir", new Color(220, 53, 69)); // Vermelho
+        btnSalvar = createStyledButton("Salvar", new Color(255, 193, 7)); // Amarelo
         btnSalvar.setEnabled(false);
 
         painelBotoes.add(btnAdicionar);
@@ -206,9 +248,33 @@ public class Interface extends JFrame {
             btnEditar.setEnabled(selecionado);
             btnExcluir.setEnabled(selecionado);
         });
+
+        // Inicializar estado dos campos
+        txtLink.setEnabled(false);
+        txtPlataforma.setEnabled(false);
+        txtCapacidade.setEnabled(true);
     }
 
-    // Os métodos abaixo permanecem inalterados
+    private JButton createStyledButton(String text, Color bgColor) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Roboto", Font.BOLD, 14));
+        button.setForeground(Color.WHITE);
+        button.setBackground(bgColor);
+        button.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        button.setFocusPainted(false);
+        button.setOpaque(true);
+        // Efeito de hover
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(bgColor.brighter());
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(bgColor);
+            }
+        });
+        return button;
+    }
+
     private void adicionarEvento() {
         if (!validarCampos()) return;
 
@@ -245,7 +311,7 @@ public class Interface extends JFrame {
         int selectedRow = tabelaEventos.getSelectedRow();
         if (selectedRow >= 0) {
             editIndex = selectedRow;
-            Evento evento = gerenciador.consultarEvento(selectedRow + 1); // IDs começam em 1
+            Evento evento = gerenciador.consultarEvento(selectedRow + 1);
             if (evento != null) {
                 txtNome.setText(evento.getNome());
                 txtData.setText(evento.getData());
@@ -260,11 +326,17 @@ public class Interface extends JFrame {
                     txtCapacidade.setText(String.valueOf(((EventoPresencial) evento).getCapacidadeMaxima()));
                     txtLink.setText("");
                     txtPlataforma.setText("");
+                    txtLink.setEnabled(false);
+                    txtPlataforma.setEnabled(false);
+                    txtCapacidade.setEnabled(true);
                 } else if (evento instanceof EventoVirtual) {
                     cbTipoEvento.setSelectedItem("Virtual");
                     txtCapacidade.setText("");
                     txtLink.setText(((EventoVirtual) evento).getLinkAcesso());
                     txtPlataforma.setText(((EventoVirtual) evento).getPlataforma());
+                    txtLink.setEnabled(true);
+                    txtPlataforma.setEnabled(true);
+                    txtCapacidade.setEnabled(false);
                 }
 
                 btnAdicionar.setEnabled(false);
@@ -349,9 +421,18 @@ public class Interface extends JFrame {
         txtLink.setText("");
         txtPlataforma.setText("");
         cbTipoEvento.setSelectedIndex(0);
+        txtLink.setEnabled(false);
+        txtPlataforma.setEnabled(false);
+        txtCapacidade.setEnabled(true);
     }
 
     public static void main(String[] args) {
+        try {
+            // Tentar usar o look and feel do sistema para uma aparência mais moderna
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         SwingUtilities.invokeLater(() -> {
             Interface app = new Interface();
             app.setVisible(true);
@@ -361,7 +442,7 @@ public class Interface extends JFrame {
 
 class EventoTableModel extends javax.swing.table.AbstractTableModel {
     private GerenciadorEventos gerenciador;
-    private String[] colunas = {"ID", "Nome", "Data", "Local", "Categoria", "Descrição", "Status"};
+    private String[] colunas = {"ID", "Nome", "Data", "Local", "Categoria", "Status"};
 
     public EventoTableModel(GerenciadorEventos gerenciador) {
         this.gerenciador = gerenciador;
@@ -397,8 +478,6 @@ class EventoTableModel extends javax.swing.table.AbstractTableModel {
             case 4:
                 return evento.getCategoria();
             case 5:
-                return evento.getDescriçãoEvento();
-            case 6:
                 return evento.getStatus();
             default:
                 return "";

@@ -1,8 +1,6 @@
-package EVENTO.Entidades;
+package EVENTO;
 
 import java.util.Scanner;
-
-import EVENTO.CRUD.GerenciadorEventos;
 
 public class EventoApp {
 
