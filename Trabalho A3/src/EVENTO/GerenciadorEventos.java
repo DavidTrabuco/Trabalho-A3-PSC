@@ -3,7 +3,7 @@ package EVENTO;
 import java.util.ArrayList;
 import java.util.List;
 
-import EVENTO.Organizador;
+
 
 public class GerenciadorEventos {
     private List<Evento> eventos;

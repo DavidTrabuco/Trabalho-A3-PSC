@@ -3,7 +3,7 @@ package EVENTO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.JTableHeader;
-import java.awt.*;
+import java.awt.*;  
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
